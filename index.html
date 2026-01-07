@@ -1,0 +1,1330 @@
+<!doctype html>
+<html lang="en" data-theme="nostalgic">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>To The Moon Marketplace — Demo</title>
+  <meta name="description" content="Demo homepage concept for To The Moon Marketplace" />
+  <style>
+    :root{
+      --bg: #f6f3ee;
+      --ink: #1b1b1b;
+      --muted:#5b5b5b;
+
+      --card:#ffffffcc;
+      --stroke:#00000014;
+      --shadow: 0 20px 60px rgba(0,0,0,.10);
+
+      --pill:#ffffffcc;
+      --pillText:#1b1b1b;
+      --pillStroke:#0000001a;
+
+      --brandA:#ff4fb8;
+      --brandB:#7a5cff;
+      --accent:#ffd400;
+      --accentInk:#151515;
+
+      --headerBg: rgba(255,255,255,.72);
+      --headerBlur: 12px;
+    }
+
+    html[data-theme="modern"]{
+      --bg:#0b0c10;
+      --ink:#f5f7ff;
+      --muted:#b8bed6;
+
+      --card: rgba(255,255,255,.08);
+      --stroke:#ffffff14;
+      --shadow: 0 24px 70px rgba(0,0,0,.45);
+
+      --pill: rgba(255,255,255,.10);
+      --pillText:#f5f7ff;
+      --pillStroke:#ffffff22;
+
+      --brandA:#39d0ff;
+      --brandB:#a855ff;
+      --accent:#ffd400;
+      --accentInk:#121212;
+
+      --headerBg: rgba(10,12,18,.55);
+      --headerBlur: 14px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--ink);
+      line-height:1.35;
+      overflow-x:hidden;
+    }
+
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+
+    /* Header */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--headerBg);
+      backdrop-filter: blur(var(--headerBlur));
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    .bar{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      padding: 10px 0;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 210px; /* helps keep nav on one line */
+    }
+
+    .logo{
+      width: 64px;   /* enlarged per request */
+      height: 64px;
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,.10);
+      border: 1px solid var(--stroke);
+      overflow:hidden;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex: 0 0 auto;
+    }
+    .logo img{width:100%;height:100%;object-fit:contain}
+
+    .brandText{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+    }
+    .brandText .name{
+      font-weight:900;
+      letter-spacing:.2px;
+      font-size: 14px;
+      line-height:1.1;
+    }
+    .brandText .tag{
+      font-size: 12px;
+      color: var(--muted);
+      line-height:1.1;
+    }
+
+    nav{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex:1;
+      flex-wrap: nowrap; /* keep on one line for demo */
+      overflow-x:auto;
+      padding-bottom: 2px;
+      margin-left: 8px;  /* nudge left (vs centered) */
+      scrollbar-width: none;
+    }
+    nav::-webkit-scrollbar{display:none}
+
+    .pill{
+      border:1px solid var(--pillStroke);
+      background: var(--pill);
+      color: var(--pillText);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-weight: 800;
+      font-size: 13px;
+      white-space: nowrap;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      cursor:pointer;
+      user-select:none;
+      transition: transform .15s ease, opacity .15s ease, background .15s ease;
+    }
+    .pill:hover{transform: translateY(-1px)}
+    .pill:active{transform: translateY(0px); opacity:.85}
+
+    .rightTools{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex: 0 0 auto;
+      margin-left:auto;
+    }
+
+    .pill.icon{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding: 9px 12px;
+    }
+    .pill .ico{filter: drop-shadow(0 1px 0 rgba(0,0,0,.20))}
+
+    /* Views */
+    .view{display:none}
+    .view.active{display:block}
+
+    /* Hero */
+    .hero{
+      position:relative;
+      border-bottom: 1px solid var(--stroke);
+      background: linear-gradient(120deg, var(--brandA), var(--brandB));
+      color:#fff;
+      overflow:hidden;
+    }
+
+    .heroInner{
+      padding: 64px 0 44px;
+      position:relative;
+      z-index:2;
+      text-align:center;
+    }
+
+    .hero h1{
+      margin:0;
+      font-size: clamp(34px, 5vw, 56px);
+      letter-spacing: .5px;
+      font-weight: 1000;
+      text-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .hero p{
+      margin: 10px auto 18px;
+      max-width: 680px;
+      font-size: clamp(15px, 2vw, 18px);
+      opacity:.95;
+      font-weight: 700;
+    }
+
+    .heroCtas{
+      display:flex;
+      gap:12px;
+      justify-content:center;
+      flex-wrap:wrap;
+      margin-top: 8px;
+    }
+    .cta{
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 950;
+      cursor:pointer;
+      box-shadow: 0 18px 60px rgba(0,0,0,.25);
+      transition: transform .15s ease, opacity .15s ease;
+      font-size: 14px;
+    }
+    .cta:hover{transform: translateY(-1px)}
+    .cta.primary{background: var(--accent); color: var(--accentInk)}
+    .cta.ghost{background: rgba(255,255,255,.18); color:#fff; border: 1px solid rgba(255,255,255,.25)}
+    .cta:active{transform: translateY(0px); opacity:.9}
+
+    /* Sparkle canvas overlay */
+    #sparkleCanvas{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      z-index:1;
+      pointer-events:none;
+      opacity: .55; /* subtle */
+      mix-blend-mode: soft-light;
+    }
+    html[data-theme="modern"] #sparkleCanvas{opacity:.35}
+
+    /* Sections */
+    section{
+      padding: 46px 0;
+    }
+    .sectionTitle{
+      font-size: 28px;
+      font-weight: 1000;
+      margin: 0 0 8px;
+      letter-spacing:.2px;
+    }
+    .sectionSub{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:14px;
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid var(--stroke);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .cardPad{padding: 18px}
+
+    .cat{
+      grid-column: span 4;
+      min-height: 150px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      position:relative;
+      overflow:hidden;
+    }
+    .cat .kicker{font-weight:900; opacity:.85; font-size:12px}
+    .cat .title{font-size:18px; font-weight:1000; margin-top:6px}
+    .cat .desc{color: var(--muted); font-weight:700; margin-top:6px; font-size:13px}
+    .cat .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-top: 12px;
+      width:fit-content;
+      border-radius: 999px;
+      padding: 9px 12px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.55);
+      font-weight: 900;
+      font-size: 13px;
+    }
+    html[data-theme="modern"] .cat .chip{
+      background: rgba(0,0,0,.20);
+      border:1px solid #ffffff1a;
+    }
+    .catBg{
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(600px 260px at 20% 20%, rgba(255,255,255,.55), transparent 60%),
+        radial-gradient(520px 220px at 80% 40%, rgba(255,255,255,.25), transparent 60%),
+        linear-gradient(140deg, rgba(255,255,255,.15), rgba(0,0,0,.10));
+      opacity:.55;
+      pointer-events:none;
+    }
+
+    /* Gallery */
+    .masonry{
+      columns: 3 260px;
+      column-gap: 14px;
+    }
+    .masonryItem{
+      break-inside: avoid;
+      margin: 0 0 14px;
+    }
+    .photo{
+      width:100%;
+      display:block;
+      border-radius: 18px;
+      border: 1px solid var(--stroke);
+      box-shadow: 0 18px 60px rgba(0,0,0,.14);
+      background: rgba(0,0,0,.06);
+    }
+
+    /* Visit + map */
+    .visitGrid{
+      display:grid;
+      grid-template-columns: 1.4fr .9fr;
+      gap:14px;
+      align-items:stretch;
+    }
+
+    .mapBox{
+      height: 360px;
+      border-radius: 20px;
+      overflow:hidden;
+      border:1px solid var(--stroke);
+      background: rgba(0,0,0,.06);
+      position:relative;
+    }
+    .mapBox iframe{
+      width:100%;
+      height:100%;
+      border:0;
+      display:block;
+      background: rgba(255,255,255,.06);
+    }
+    .mapBadge{
+      position:absolute;
+      top:10px;
+      left:10px;
+      background: rgba(0,0,0,.55);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+      padding: 8px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      display:none;
+      gap:8px;
+      align-items:center;
+    }
+    .mapBadge.show{display:inline-flex}
+
+    .visitSide .pill{
+      width:100%;
+      justify-content:center;
+      padding: 12px 14px;
+      font-size: 14px;
+    }
+
+    /* Modals */
+    .modalOverlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 80;
+    }
+    .modalOverlay.show{display:flex}
+    .modal{
+      width:min(680px, 100%);
+      border-radius: 24px;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1px solid var(--stroke);
+      box-shadow: 0 28px 90px rgba(0,0,0,.45);
+      overflow:hidden;
+    }
+    .modalTop{
+      padding: 18px 18px 0;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap: 10px;
+    }
+    .modalTitle{
+      font-size: 18px;
+      font-weight: 1000;
+      margin:0;
+    }
+    .x{
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.5);
+      width:38px;height:38px;border-radius:12px;
+      display:grid;place-items:center;
+      font-weight:1000;
+      cursor:pointer;
+      user-select:none;
+    }
+    html[data-theme="modern"] .x{background: rgba(255,255,255,.06)}
+    .modalBody{padding: 12px 18px 18px}
+    .modalBody p{margin: 10px 0;color: var(--muted); font-weight:700}
+    .modalBody .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .field{
+      border:1px solid var(--stroke);
+      border-radius: 16px;
+      padding: 12px 12px;
+      background: rgba(255,255,255,.55);
+      font-weight: 800;
+      color: var(--ink);
+      outline:none;
+    }
+    html[data-theme="modern"] .field{background: rgba(255,255,255,.06); color: var(--ink)}
+    .modalActions{
+      display:flex; gap:10px; flex-wrap:wrap;
+      margin-top: 12px;
+    }
+    .btn{
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.55);
+      padding: 11px 14px;
+      font-weight: 1000;
+      cursor:pointer;
+      user-select:none;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+    html[data-theme="modern"] .btn{background: rgba(255,255,255,.06)}
+    .btn.primary{background: var(--accent); color: var(--accentInk); border-color: transparent}
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px); opacity:.9}
+
+    /* Bottom-right faint controls (Theme + Reset) */
+    .demoControls{
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 90;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+      opacity:.35;              /* faint by default */
+      filter: saturate(.9);
+      transition: opacity .15s ease;
+    }
+    .demoControls:hover{opacity:1}
+    .mini{
+      border-radius: 999px;
+      border:1px solid var(--stroke);
+      background: var(--pill);
+      color: var(--pillText);
+      padding: 10px 12px;
+      font-weight: 1000;
+      font-size: 12px;
+      cursor:pointer;
+      user-select:none;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      justify-content:center;
+      box-shadow: 0 16px 60px rgba(0,0,0,.12);
+      white-space:nowrap;
+    }
+
+    /* Simple toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.70);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-weight: 900;
+      font-size: 12px;
+      display:none;
+      z-index: 95;
+    }
+    .toast.show{display:block}
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .brand{min-width: 170px}
+      .visitGrid{grid-template-columns: 1fr}
+      .cat{grid-column: span 6}
+    }
+    @media (max-width: 640px){
+      .brandText{display:none}
+      .logo{width:56px;height:56px}
+      .cat{grid-column: span 12}
+      .masonry{columns: 1}
+      nav{gap:6px}
+      .pill{padding: 8px 10px; font-size: 12px}
+    }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      #sparkleCanvas{display:none}
+      .pill, .btn, .cta{transition:none}
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sticky header -->
+  <header>
+    <div class="wrap">
+      <div class="bar">
+        <div class="brand" role="banner">
+          <div class="logo" title="To The Moon Marketplace">
+            <!-- Put your logo at: assets/ttmm-emblem.png (preferred) or assets/ttmm-logo-cropped.png -->
+            <img src="assets/ttmm-emblem.png"
+                 alt="To The Moon Marketplace logo"
+                 onerror="this.onerror=null; this.src='assets/ttmm-logo-cropped.png';" />
+          </div>
+          <div class="brandText">
+            <div class="name">To The Moon Marketplace</div>
+            <div class="tag">Rare candy • gifts • international treats</div>
+          </div>
+        </div>
+
+        <nav aria-label="Primary navigation">
+          <div class="pill" data-go="home">Home</div>
+          <div class="pill" data-scroll="#categories">Categories</div>
+          <div class="pill" data-scroll="#gallery">Gallery</div>
+          <div class="pill" data-go="story">Sweet Story</div>
+          <div class="pill" data-scroll="#visit">Visit</div>
+          <div class="pill" data-scroll="#contact">Contact</div>
+          <div class="pill" data-scroll="#events">Events</div>
+        </nav>
+
+        <div class="rightTools">
+          <div class="pill icon" data-go="rewards" title="Sweet Rewards (demo)">
+            <span class="ico">🌀</span><span>Rewards</span>
+          </div>
+          <div class="pill icon" data-go="shop" title="Online marketplace (demo)">
+            <span class="ico">🛒</span><span>Shop</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Views -->
+  <main>
+
+    <!-- HOME VIEW -->
+    <div class="view active" id="view-home">
+      <div class="hero" id="home">
+        <canvas id="sparkleCanvas" aria-hidden="true"></canvas>
+
+        <div class="wrap heroInner">
+          <h1>To The Moon Marketplace</h1>
+          <p>Over 12,000 rare candies, gifts & international treats — same soul, cleaner presentation.</p>
+
+          <div class="heroCtas">
+            <button class="cta primary" data-scroll="#visit">Visit Us 🚀</button>
+            <button class="cta ghost" data-scroll="#gallery">See the Store</button>
+            <button class="cta ghost" data-go="rewards">Sweet Rewards</button>
+          </div>
+        </div>
+      </div>
+
+      <section id="categories">
+        <div class="wrap">
+          <h2 class="sectionTitle">Explore Our Categories</h2>
+          <p class="sectionSub">These are placeholders you can drag + drop / rename later without regenerating the whole page.</p>
+
+          <div class="grid">
+            <div class="card cat">
+              <div class="catBg"></div>
+              <div class="cardPad" style="position:relative">
+                <div class="kicker">Nostalgic</div>
+                <div class="title">Candy Classics</div>
+                <div class="desc">Old-school favorites + hard-to-find imports.</div>
+                <div class="chip">🍬 Browse</div>
+              </div>
+            </div>
+
+            <div class="card cat">
+              <div class="catBg"></div>
+              <div class="cardPad" style="position:relative">
+                <div class="kicker">Gourmet</div>
+                <div class="title">Chocolate & Treats</div>
+                <div class="desc">A serious selection from around the world.</div>
+                <div class="chip">🍫 Browse</div>
+              </div>
+            </div>
+
+            <div class="card cat">
+              <div class="catBg"></div>
+              <div class="cardPad" style="position:relative">
+                <div class="kicker">Giftable</div>
+                <div class="title">Cards, Gifts & Novelties</div>
+                <div class="desc">Because you should never show up empty-handed.</div>
+                <div class="chip">🎁 Browse</div>
+              </div>
+            </div>
+
+            <div class="card cat">
+              <div class="catBg"></div>
+              <div class="cardPad" style="position:relative">
+                <div class="kicker">Imported</div>
+                <div class="title">International Snacks</div>
+                <div class="desc">Over 60 countries worth of “wait… what is that?”</div>
+                <div class="chip">🌍 Browse</div>
+              </div>
+            </div>
+
+            <div class="card cat">
+              <div class="catBg"></div>
+              <div class="cardPad" style="position:relative">
+                <div class="kicker">Better-for-you</div>
+                <div class="title">Sugar Free / Low Carb</div>
+                <div class="desc">Tastes good. Doesn’t feel like punishment.</div>
+                <div class="chip">🥜 Browse</div>
+              </div>
+            </div>
+
+            <div class="card cat">
+              <div class="catBg"></div>
+              <div class="cardPad" style="position:relative">
+                <div class="kicker">Fresh Reads</div>
+                <div class="title">Newsstand</div>
+                <div class="desc">Current magazines & papers (NY + England vibes).</div>
+                <div class="chip">📰 Browse</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery">
+        <div class="wrap">
+          <h2 class="sectionTitle">Familiar Favorites (From the Real Shop)</h2>
+          <p class="sectionSub">If an image file isn’t found, it will quietly skip it (so the demo never looks broken).</p>
+
+          <div class="masonry" id="galleryMasonry">
+            <!-- Uses common local names. Put your photos in /assets/ with these names, or change them below in JS. -->
+          </div>
+        </div>
+      </section>
+
+      <section id="visit">
+        <div class="wrap">
+          <h2 class="sectionTitle">📍 Visit Us In Fort Lauderdale</h2>
+          <p class="sectionSub">2205 Wilton Drive, Fort Lauderdale, FL 33305 • Mon–Thurs 10am–11pm • Fri–Sat 10am–1am • Sun 10am–11pm</p>
+
+          <div class="card cardPad">
+            <div class="visitGrid">
+              <div class="mapBox">
+                <div class="mapBadge" id="mapBadge">✅ Map Loaded</div>
+
+                <!-- Super-simple embed that works without an API key -->
+                <iframe
+                  id="mapFrame"
+                  title="Map to To The Moon Marketplace"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  loading="eager"
+                  src="https://www.google.com/maps?q=To+The+Moon+Marketplace+2205+Wilton+Drive+Fort+Lauderdale+FL+33305&output=embed">
+                </iframe>
+              </div>
+
+              <div class="visitSide" style="display:flex;flex-direction:column;gap:10px">
+                <div class="pill" id="openMapsBtn">📍 Open in Google Maps</div>
+                <a class="pill" href="tel:+19545642987">📞 Call (954) 564-2987</a>
+                <div class="pill" data-go="story">📖 Read Our Sweet Story</div>
+                <div class="pill" data-go="rewards">🌀 Sweet Rewards (Demo)</div>
+                <div class="pill" data-go="shop">🛒 Online Marketplace (Demo)</div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;color:var(--muted);font-weight:800">
+              If embeds ever act up, the “Open in Google Maps” button always works.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="events">
+        <div class="wrap">
+          <h2 class="sectionTitle">Events (Placeholder)</h2>
+          <p class="sectionSub">Drop in an events list later — weekly tastings, giveaways, seasonal specials, etc.</p>
+
+          <div class="grid">
+            <div class="card" style="grid-column: span 6">
+              <div class="cardPad">
+                <div style="font-weight:1000">🎉 Monthly Giveaway</div>
+                <p style="margin:8px 0;color:var(--muted);font-weight:800">Basket, gift certificates, and fun surprises — “ask in-store” for details.</p>
+                <div class="btn">Edit this</div>
+              </div>
+            </div>
+            <div class="card" style="grid-column: span 6">
+              <div class="cardPad">
+                <div style="font-weight:1000">🍫 Tasting Table</div>
+                <p style="margin:8px 0;color:var(--muted);font-weight:800">A rotating “try before you buy” vibe.</p>
+                <div class="btn">Edit this</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="wrap">
+          <h2 class="sectionTitle">Contact</h2>
+          <p class="sectionSub">Simple, clear, and mobile-friendly.</p>
+
+          <div class="grid">
+            <div class="card" style="grid-column: span 7">
+              <div class="cardPad">
+                <div style="font-weight:1000;font-size:16px">To The Moon Marketplace</div>
+                <div style="margin-top:8px;color:var(--muted);font-weight:800">
+                  2205 Wilton Drive, Fort Lauderdale, FL 33305<br />
+                  Phone: (954) 564-2987
+                </div>
+
+                <div class="modalActions" style="margin-top:14px">
+                  <a class="btn primary" href="tel:+19545642987">Call Now</a>
+                  <div class="btn" data-go="rewards">Sweet Rewards</div>
+                  <div class="btn" data-go="shop">Shop (Demo)</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="grid-column: span 5">
+              <div class="cardPad">
+                <div style="font-weight:1000">Quick Links (Placeholders)</div>
+                <p style="margin:8px 0;color:var(--muted);font-weight:800">These are here so you can add pages later without regenerating the whole demo.</p>
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <div class="btn" data-go="story">Sweet Story</div>
+                  <div class="btn" data-go="rewards">Rewards</div>
+                  <div class="btn" data-go="shop">Online Marketplace</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- SWEET STORY VIEW -->
+    <div class="view" id="view-story">
+      <section>
+        <div class="wrap">
+          <h2 class="sectionTitle">Our Sweet Story</h2>
+          <p class="sectionSub">Polished for readability, but keeping Antonio’s heart and “don’t tell anyone… shh 😄” energy intact.</p>
+
+          <div class="card">
+            <div class="cardPad">
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:850">
+                Where does the name come from? What does it mean? Who are we?
+                Pull up a chair — it’s a good one.
+              </p>
+
+              <div style="font-weight:950;margin:12px 0 6px">👋 Hi — I’m Antonio.</div>
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                I’m the proprietor of To The Moon Marketplace, and the name is a love letter to my family… and a little Brooklyn magic.
+              </p>
+
+              <div style="font-weight:950;margin:12px 0 6px">🌙 The “To The Moon” part</div>
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                Remember <em>The Honeymooners</em>? Of course you do — Ralph &amp; Alice, Brooklyn, the bus Ralph drove…
+                and the legendary line: “To the moon, Alice!”
+              </p>
+
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                Here’s the twist: my Mom and Dad are named <strong>Ralph</strong> and <strong>Alice</strong>.
+                We’re also from <strong>Brooklyn</strong>. And my sister’s husband started working at the bus depot there when he was 18 —
+                and today he’s the superintendent.
+              </p>
+
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                Not just any depot, either… it’s the <strong>Jackie Gleason Bus Depot</strong>.
+                At that point, it felt a little too coincidental to ignore — so “To The Moon” it became.
+                And honestly? It’s a perfect name for a place with some of the greatest stuff under the moon.
+              </p>
+
+              <div style="font-weight:950;margin:12px 0 6px">🍬 What you’ll find inside</div>
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                This is one of the most eclectic stores you’ll ever walk into:
+                nostalgic candy, gourmet foods, wines, cheese, pâtés, novelties, greeting cards, magnets — and so much more.
+              </p>
+
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                We carry goods from <strong>60+ countries</strong>, including a huge selection of “days-gone-by” favorites.
+                Many items are imported directly from overseas.
+                Our newsstand includes current magazines and papers from <strong>New York</strong> and <strong>England</strong>.
+              </p>
+
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                And if you’re a chocolate person — good luck leaving quickly.
+                There’s fabulous chocolate from <strong>50+ countries</strong>.
+                You’ll also find <strong>sugar-free</strong> and <strong>low-carb</strong> products that actually taste great.
+              </p>
+
+              <div style="font-weight:950;margin:12px 0 6px">🏆 A little brag (earned)</div>
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                Some of our items have won the <strong>N.A.S.F.T. Award</strong> (National Association for the Specialty Food Trade) —
+                which is basically like winning an Oscar in the specialty food world.
+              </p>
+
+              <div style="font-weight:950;margin:12px 0 6px">🚪 Since 2005</div>
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                We opened on <strong>February 15th, 2005</strong>, and customers have been calling it “Unique,” “Fabulous,”
+                “Outstanding,” and “Just what Wilton Manors needed” ever since.
+              </p>
+
+              <p style="margin:0 0 12px;color:var(--muted);font-weight:800">
+                We do tastings, samples — and if you’re curious about something, just ask.
+                The staff is knowledgeable, and there’s always something for everyone: all ages, all genders.
+                Don’t miss out — it’s truly a great store.
+              </p>
+
+              <p style="margin:0;color:var(--muted);font-weight:900">
+                P.S. My real first name is Ralph… don’t tell anyone. Shh. 😄
+              </p>
+
+              <div class="modalActions" style="margin-top:16px">
+                <div class="btn primary" data-go="home">Back to Home</div>
+                <div class="btn" data-go="rewards">Sweet Rewards (Demo)</div>
+                <div class="btn" data-go="shop">Online Marketplace (Demo)</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- REWARDS VIEW -->
+    <div class="view" id="view-rewards">
+      <section>
+        <div class="wrap">
+          <h2 class="sectionTitle">Sweet Rewards (Demo)</h2>
+          <p class="sectionSub">Mockup page for pitch purposes: intuitive login + benefits + sample perks.</p>
+
+          <div class="grid">
+            <div class="card" style="grid-column: span 7">
+              <div class="cardPad">
+                <div style="font-weight:1000;font-size:18px">Join Sweet Rewards</div>
+                <p style="margin:10px 0;color:var(--muted);font-weight:800">
+                  Earn points on purchases, get surprise member-only offers, and unlock seasonal perks — built for repeat customers.
+                </p>
+
+                <div class="grid" style="margin-top:12px">
+                  <div class="card" style="grid-column: span 6">
+                    <div class="cardPad">
+                      <div style="font-weight:1000">✨ Sample Perks</div>
+                      <ul style="margin:10px 0 0;color:var(--muted);font-weight:800">
+                        <li>$5 reward every 200 points</li>
+                        <li>Member-only tasting invites</li>
+                        <li>Birthday treat (because obviously)</li>
+                        <li>Early access to limited imports</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card" style="grid-column: span 6">
+                    <div class="cardPad">
+                      <div style="font-weight:1000">🎁 Monthly Giveaways</div>
+                      <p style="margin:10px 0 0;color:var(--muted);font-weight:800">
+                        Baskets, gift certificates, and “how is this place real?” surprises.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modalActions" style="margin-top:14px">
+                  <div class="btn primary" id="openRewardsSignup">Create Account</div>
+                  <div class="btn" data-go="home">Back to Home</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card" style="grid-column: span 5">
+              <div class="cardPad">
+                <div style="font-weight:1000">Member Login (Demo)</div>
+                <p style="margin:10px 0;color:var(--muted);font-weight:800">
+                  This is a pitch mockup — wire it to the real program later.
+                </p>
+
+                <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px">
+                  <input class="field" placeholder="Email" />
+                  <input class="field" placeholder="Password" type="password" />
+                  <div class="btn primary">Log In</div>
+                  <div class="btn">Forgot Password</div>
+                </div>
+
+                <p style="margin:12px 0 0;color:var(--muted);font-weight:800">
+                  Quick win: QR code in-store that drops customers right here.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- SHOP VIEW -->
+    <div class="view" id="view-shop">
+      <section>
+        <div class="wrap">
+          <h2 class="sectionTitle">Online Marketplace (Demo)</h2>
+          <p class="sectionSub">Just placeholders for the pitch — enough to show navigation and intent.</p>
+
+          <div class="card">
+            <div class="cardPad">
+              <div style="font-weight:1000;font-size:18px">Browse Products</div>
+              <p style="margin:10px 0;color:var(--muted);font-weight:800">
+                Next phase would be online ordering + “one-of-a-kind” inventory highlights.
+              </p>
+
+              <div class="grid" style="margin-top:12px">
+                <div class="card" style="grid-column: span 4"><div class="cardPad"><div style="font-weight:1000">🍬 Candy</div><p style="margin:8px 0;color:var(--muted);font-weight:800">Placeholder category</p><div class="btn">View</div></div></div>
+                <div class="card" style="grid-column: span 4"><div class="cardPad"><div style="font-weight:1000">🍫 Chocolate</div><p style="margin:8px 0;color:var(--muted);font-weight:800">Placeholder category</p><div class="btn">View</div></div></div>
+                <div class="card" style="grid-column: span 4"><div class="cardPad"><div style="font-weight:1000">🎁 Gifts</div><p style="margin:8px 0;color:var(--muted);font-weight:800">Placeholder category</p><div class="btn">View</div></div></div>
+              </div>
+
+              <div class="modalActions" style="margin-top:14px">
+                <div class="btn primary" data-go="home">Back to Home</div>
+                <div class="btn" data-go="rewards">Sweet Rewards</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+  </main>
+
+  <!-- Bottom-right faint controls -->
+  <div class="demoControls" aria-label="Demo controls">
+    <div class="mini" id="resetDemoBtn" title="Resets popups, theme, and demo state">Reset Demo</div>
+    <div class="mini" id="themeBtn" title="Toggle theme">✨ Theme</div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <!-- Rewards popup (auto once) -->
+  <div class="modalOverlay" id="rewardsModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rewardsTitle">
+      <div class="modalTop">
+        <div>
+          <h3 class="modalTitle" id="rewardsTitle">Join Sweet Rewards</h3>
+          <div style="color:var(--muted);font-weight:800;margin-top:6px">
+            Get points, perks, and member-only surprises. (Pitch demo)
+          </div>
+        </div>
+        <div class="x" id="closeRewards">✕</div>
+      </div>
+      <div class="modalBody">
+        <p>
+          This popup is set to appear once per “session” so it feels real — but you can always bring it back with
+          <strong>Reset Demo</strong> (bottom-right, Windows-activation-energy 😏).
+        </p>
+        <div class="row">
+          <input class="field" placeholder="First name" />
+          <input class="field" placeholder="Mobile (optional)" />
+        </div>
+        <div class="modalActions">
+          <div class="btn primary" id="joinNow">Join Now</div>
+          <div class="btn" id="maybeLater">Maybe Later</div>
+          <div class="btn" data-go="rewards">View Rewards Page</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================
+       Navigation / Views
+    ========================== */
+    const views = {
+      home: document.getElementById('view-home'),
+      story: document.getElementById('view-story'),
+      rewards: document.getElementById('view-rewards'),
+      shop: document.getElementById('view-shop'),
+    };
+
+    function showView(name){
+      Object.values(views).forEach(v => v.classList.remove('active'));
+      (views[name] || views.home).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToSel(sel){
+      showView('home');
+      requestAnimationFrame(() => {
+        const el = document.querySelector(sel);
+        if(!el) return;
+        el.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      const go = e.target.closest('[data-go]');
+      if(go){
+        showView(go.getAttribute('data-go'));
+      }
+      const sc = e.target.closest('[data-scroll]');
+      if(sc){
+        scrollToSel(sc.getAttribute('data-scroll'));
+      }
+    });
+
+    /* =========================
+       Map + Open in Google Maps
+    ========================== */
+    const mapFrame = document.getElementById('mapFrame');
+    const mapBadge = document.getElementById('mapBadge');
+    const openMapsBtn = document.getElementById('openMapsBtn');
+    const mapsUrl = 'https://www.google.com/maps?q=To+The+Moon+Marketplace+2205+Wilton+Drive+Fort+Lauderdale+FL+33305';
+
+    if(openMapsBtn){
+      openMapsBtn.addEventListener('click', () => window.open(mapsUrl, '_blank'));
+    }
+
+    // Show a "loaded" badge when the iframe fires load.
+    if(mapFrame){
+      mapFrame.addEventListener('load', () => {
+        mapBadge.classList.add('show');
+      });
+    }
+
+    /* =========================
+       Rewards Modal (auto once)
+    ========================== */
+    const rewardsModal = document.getElementById('rewardsModal');
+    const closeRewards = document.getElementById('closeRewards');
+    const joinNow = document.getElementById('joinNow');
+    const maybeLater = document.getElementById('maybeLater');
+    const openRewardsSignup = document.getElementById('openRewardsSignup');
+
+    function openModal(){ rewardsModal.classList.add('show'); }
+    function closeModal(){ rewardsModal.classList.remove('show'); }
+
+    function shouldShowRewards(){
+      // once per session in localStorage; reset clears it
+      return localStorage.getItem('ttmm_rewards_seen') !== '1';
+    }
+    function markRewardsSeen(){
+      localStorage.setItem('ttmm_rewards_seen','1');
+    }
+
+    if(closeRewards) closeRewards.addEventListener('click', () => { markRewardsSeen(); closeModal(); });
+    if(maybeLater)  maybeLater.addEventListener('click',  () => { markRewardsSeen(); closeModal(); });
+    if(joinNow)     joinNow.addEventListener('click',     () => { markRewardsSeen(); closeModal(); toast('✅ Joined (demo) — imagine this wired to the real program.'); });
+    if(openRewardsSignup) openRewardsSignup.addEventListener('click', () => { openModal(); });
+
+    // auto-open shortly after load
+    window.addEventListener('load', () => {
+      if(shouldShowRewards()){
+        setTimeout(openModal, 750);
+      }
+    });
+
+    /* =========================
+       Theme Toggle + Reset Demo
+    ========================== */
+    const themeBtn = document.getElementById('themeBtn');
+    const resetDemoBtn = document.getElementById('resetDemoBtn');
+
+    function setTheme(next){
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('ttmm_theme', next);
+      // refresh sparkles with theme preference
+      sparkle.mode = (next === 'nostalgic') ? 'starburst' : 'glitter';
+      sparkle.render(true);
+    }
+
+    function toggleTheme(){
+      const cur = document.documentElement.getAttribute('data-theme') || 'nostalgic';
+      setTheme(cur === 'nostalgic' ? 'modern' : 'nostalgic');
+      toast(`✨ Theme: ${document.documentElement.getAttribute('data-theme')}`);
+    }
+
+    function resetDemo(){
+      localStorage.removeItem('ttmm_rewards_seen');
+      localStorage.removeItem('ttmm_theme');
+      localStorage.removeItem('ttmm_sparkle_mode');
+      setTheme('nostalgic');
+      showView('home');
+      // show rewards popup again
+      setTimeout(openModal, 600);
+      toast('Reset complete. (Windows activation vibes restored 😏)');
+    }
+
+    if(themeBtn) themeBtn.addEventListener('click', toggleTheme);
+    if(resetDemoBtn) resetDemoBtn.addEventListener('click', resetDemo);
+
+    // restore theme
+    const savedTheme = localStorage.getItem('ttmm_theme');
+    if(savedTheme === 'modern' || savedTheme === 'nostalgic') setTheme(savedTheme);
+
+    /* =========================
+       Gallery (robust loading)
+       - If a file isn't found, it won't show.
+    ========================== */
+    const galleryMasonry = document.getElementById('galleryMasonry');
+
+    const galleryFiles = [
+      'assets/gallery-01.jpg',
+      'assets/gallery-02.jpg',
+      'assets/gallery-03.jpg',
+      'assets/gallery-04.jpg',
+      'assets/gallery-05.jpg',
+      'assets/gallery-06.jpg',
+      'assets/gallery-07.jpg',
+      'assets/gallery-08.jpg',
+      'assets/gallery-09.jpg',
+      'assets/gallery-10.jpg',
+    ];
+
+    function addPhoto(src){
+      const wrap = document.createElement('div');
+      wrap.className = 'masonryItem';
+
+      const img = document.createElement('img');
+      img.className = 'photo';
+      img.alt = 'Store photo';
+      img.loading = 'lazy';
+      img.src = src;
+
+      img.onerror = () => {
+        // quietly skip missing images so the demo never looks broken
+        wrap.remove();
+      };
+
+      wrap.appendChild(img);
+      galleryMasonry.appendChild(wrap);
+    }
+
+    if(galleryMasonry){
+      galleryFiles.forEach(addPhoto);
+    }
+
+    /* =========================
+       Sparkles (NO external files)
+       Modes: glitter | starburst | confetti
+       Default: starburst (nostalgic), glitter (modern)
+       You can cycle modes with Ctrl+Shift+S (hidden dev trick).
+    ========================== */
+    const canvas = document.getElementById('sparkleCanvas');
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const sparkle = {
+      mode: localStorage.getItem('ttmm_sparkle_mode') || 'starburst',
+      dpr: Math.max(1, Math.min(2, window.devicePixelRatio || 1)),
+      w: 0,
+      h: 0,
+      ctx: null,
+      points: [],
+      lastT: 0,
+      init(){
+        if(!canvas || prefersReduced) return;
+        this.ctx = canvas.getContext('2d');
+        this.resize();
+        this.seed();
+        this.render(true);
+        window.addEventListener('resize', () => this.resize());
+        requestAnimationFrame((t) => this.tick(t));
+      },
+      resize(){
+        if(!this.ctx) return;
+        const rect = canvas.getBoundingClientRect();
+        this.w = Math.max(1, Math.floor(rect.width));
+        this.h = Math.max(1, Math.floor(rect.height));
+        canvas.width = Math.floor(this.w * this.dpr);
+        canvas.height = Math.floor(this.h * this.dpr);
+        this.ctx.setTransform(this.dpr,0,0,this.dpr,0,0);
+      },
+      seed(){
+        // regenerate points for the current mode
+        const count = (this.mode === 'confetti') ? 160 : (this.mode === 'glitter' ? 140 : 120);
+        this.points = [];
+        for(let i=0;i<count;i++){
+          this.points.push(this.makePoint());
+        }
+      },
+      makePoint(){
+        const x = Math.random()*this.w;
+        const y = Math.random()*this.h;
+        const r = (this.mode === 'starburst') ? (3 + Math.random()*6) : (1 + Math.random()*4);
+        const a = Math.random()*0.9 + 0.08;
+        const s = 0.15 + Math.random()*0.55; // twinkle speed
+        const hue = Math.floor(Math.random()*360);
+        return {x,y,r,a,s,hue,ph:Math.random()*Math.PI*2};
+      },
+      render(forceSeed=false){
+        if(!this.ctx) return;
+        if(forceSeed) this.seed();
+      },
+      tick(t){
+        if(!this.ctx) return;
+        const dt = Math.min(40, (t - (this.lastT||t)));
+        this.lastT = t;
+
+        const ctx = this.ctx;
+        ctx.clearRect(0,0,this.w,this.h);
+
+        // gentle vignette to make sparkles feel “in” the gradient
+        ctx.save();
+        const g = ctx.createRadialGradient(this.w*0.5,this.h*0.35, 40, this.w*0.5,this.h*0.35, Math.max(this.w,this.h)*0.9);
+        g.addColorStop(0,'rgba(255,255,255,.10)');
+        g.addColorStop(1,'rgba(0,0,0,.10)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0,0,this.w,this.h);
+        ctx.restore();
+
+        // draw sparkles
+        for(const p of this.points){
+          p.ph += p.s * (dt/16.6);
+
+          const tw = 0.55 + 0.45*Math.sin(p.ph);
+          const alpha = p.a * tw;
+
+          if(this.mode === 'glitter'){
+            // bokeh-like soft dots
+            ctx.beginPath();
+            ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+            ctx.shadowColor = `rgba(255,255,255,${alpha})`;
+            ctx.shadowBlur = 10;
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+            ctx.fill();
+            ctx.shadowBlur = 0;
+          }
+
+          if(this.mode === 'starburst'){
+            // tiny star points
+            const spikes = 6;
+            const outer = p.r + 2;
+            const inner = Math.max(1, p.r * 0.45);
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate(p.ph*0.6);
+            ctx.beginPath();
+            for(let i=0;i<spikes*2;i++){
+              const ang = (Math.PI*i)/spikes;
+              const rr = (i%2===0) ? outer : inner;
+              ctx.lineTo(Math.cos(ang)*rr, Math.sin(ang)*rr);
+            }
+            ctx.closePath();
+            ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+            ctx.shadowColor = `rgba(255,255,255,${alpha})`;
+            ctx.shadowBlur = 12;
+            ctx.fill();
+            ctx.restore();
+          }
+
+          if(this.mode === 'confetti'){
+            // playful colored dots
+            ctx.save();
+            ctx.fillStyle = `hsla(${p.hue}, 90%, 70%, ${alpha})`;
+            ctx.shadowColor = `hsla(${p.hue}, 90%, 70%, ${alpha})`;
+            ctx.shadowBlur = 8;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, Math.max(1,p.r*0.75), 0, Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+          }
+        }
+
+        requestAnimationFrame((tt) => this.tick(tt));
+      }
+    };
+
+    // default sparkle mode based on theme
+    (function(){
+      const theme = document.documentElement.getAttribute('data-theme') || 'nostalgic';
+      if(!localStorage.getItem('ttmm_sparkle_mode')){
+        sparkle.mode = (theme === 'nostalgic') ? 'starburst' : 'glitter';
+      }
+      sparkle.init();
+    })();
+
+    // Hidden sparkle cycling (dev shortcut): Ctrl+Shift+S
+    document.addEventListener('keydown', (e) => {
+      if(e.ctrlKey && e.shiftKey && (e.key.toLowerCase() === 's')){
+        const modes = ['starburst','glitter','confetti'];
+        const i = modes.indexOf(sparkle.mode);
+        sparkle.mode = modes[(i+1)%modes.length];
+        localStorage.setItem('ttmm_sparkle_mode', sparkle.mode);
+        sparkle.render(true);
+        toast(`✨ Sparkle mode: ${sparkle.mode}`);
+      }
+    });
+
+    /* =========================
+       Toast helper
+    ========================== */
+    const toastEl = document.getElementById('toast');
+    let toastTimer = null;
+    function toast(msg){
+      if(!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
+    }
+
+  </script>
+</body>
+</html>

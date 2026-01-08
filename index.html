@@ -524,6 +524,8 @@
       .masonry{columns: 1}
       nav{gap:6px}
       .pill{padding: 8px 10px; font-size: 12px}
+      #todayHoursPill span:last-child{ display:none; } /* hide text, keep icon */
+
     }
 /* Rewards page: stack the two main columns on phones + narrow screens */
 @media (max-width: 900px){
@@ -597,8 +599,11 @@
         </nav>
 
         <div class="rightTools">
-          <div class="pill icon" data-go="rewards" title="Sweet Rewards (demo)">
-            <span class="ico">🌀</span><span>Rewards</span>
+         <div class="pill icon" id="todayHoursPill" title="Today's hours (from schedule)">
+ 	  <span class="ico">🕒</span><span id="todayHoursText">Today: …</span>
+         </div>        
+ 	 <div class="pill icon" data-go="rewards" title="Sweet Rewards (demo)">
+          <span class="ico">🌀</span><span>Rewards</span>
           </div>
           <div class="pill icon" data-go="shop" title="Online marketplace (demo)">
             <span class="ico">🛒</span><span>Shop</span>
@@ -610,6 +615,24 @@
 
   <!-- Views -->
   <main>
+
+/* =========================
+   Today's Hours pill (header)
+   Schedule:
+   Sun–Thu: 12 PM – 9 PM
+   Fri–Sat: 12 PM – 12 AM
+========================== */
+(function(){
+  const el = document.getElementById('todayHoursText');
+  if(!el) return;
+
+  const d = new Date();
+  const day = d.getDay(); // 0=Sun ... 6=Sat
+  const isFriSat = (day === 5 || day === 6);
+
+  const hours = isFriSat ? '12:00 PM – 12:00 AM' : '12:00 PM – 9:00 PM';
+  el.textContent = `Today: ${hours}`;
+})();
 
     <!-- HOME VIEW -->
     <div class="view active" id="view-home">

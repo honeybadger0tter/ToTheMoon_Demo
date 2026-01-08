@@ -525,12 +525,46 @@
       nav{gap:6px}
       .pill{padding: 8px 10px; font-size: 12px}
     }
+/* Rewards page: stack the two main columns on phones + narrow screens */
+@media (max-width: 900px){
+  /* Make the rewards view grid a single column */
+  #view-rewards .grid{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Override inline spans like "grid-column: span 7" / "span 5" */
+  #view-rewards .grid > .card{
+    grid-column: 1 / -1 !important;
+  }
+
+  /* Also stack the two perk cards inside the left card */
+  #view-rewards .grid .grid > .card{
+    grid-column: 1 / -1 !important;
+  }
+}
 
     /* Reduce motion */
     @media (prefers-reduced-motion: reduce){
       #sparkleCanvas{display:none}
       .pill, .btn, .cta{transition:none}
     }
+/* Rewards page: stack the two main columns on phones + narrow screens */
+@media (max-width: 900px){
+  /* make the rewards view grid a single column */
+  #view-rewards .grid{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* override inline grid-column spans (7/5) */
+  #view-rewards .grid > .card{
+    grid-column: 1 / -1 !important;
+  }
+
+  /* also stack the two perk cards inside the left column */
+  #view-rewards .grid .grid > .card{
+    grid-column: 1 / -1 !important;
+  }
+}
   </style>
 </head>
 
@@ -541,10 +575,10 @@
       <div class="bar">
         <div class="brand" role="banner">
           <div class="logo" title="To The Moon Marketplace">
-            <!-- Put your logo at: assets/ttmm-emblem.png (preferred) or assets/ttmm-logo-cropped.png -->
-            <img src="assets/ttmm-emblem.png"
-                 alt="To The Moon Marketplace logo"
-                 onerror="this.onerror=null; this.src='assets/ttmm-logo-cropped.png';" />
+<!-- Put your logo at: assets/ttmm-emblem.png (preferred) or assets/ttmm-logo-cropped.png -->
+<img src="assets/ttmm-emblem.png"
+     alt="To The Moon Marketplace logo"
+     onerror="this.onerror=null; this.src='assets/ttmm-logo-cropped.png';" />
           </div>
           <div class="brandText">
             <div class="name">To The Moon Marketplace</div>

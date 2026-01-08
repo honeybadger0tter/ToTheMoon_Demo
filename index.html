@@ -622,17 +622,6 @@
    Sun–Thu: 12 PM – 9 PM
    Fri–Sat: 12 PM – 12 AM
 ========================== */
-(function(){
-  const el = document.getElementById('todayHoursText');
-  if(!el) return;
-
-  const d = new Date();
-  const day = d.getDay(); // 0=Sun ... 6=Sat
-  const isFriSat = (day === 5 || day === 6);
-
-  const hours = isFriSat ? '12:00 PM – 12:00 AM' : '12:00 PM – 9:00 PM';
-  el.textContent = `Today: ${hours}`;
-})();
 
     <!-- HOME VIEW -->
     <div class="view active" id="view-home">
@@ -1535,6 +1524,17 @@ function syncSparklesWithTheme(theme){
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
     }
+
+window.addEventListener('DOMContentLoaded', () => {
+  const el = document.getElementById('todayHoursText');
+  if(!el) return;
+
+  const day = new Date().getDay(); // 0=Sun ... 6=Sat
+  const isFriSat = (day === 5 || day === 6);
+  const hours = isFriSat ? '12:00 PM – 12:00 AM' : '12:00 PM – 9:00 PM';
+
+  el.textContent = `Today: ${hours}`;
+});
 
   </script>
 </body>

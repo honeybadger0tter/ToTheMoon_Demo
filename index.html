@@ -576,7 +576,7 @@
     <div class="wrap">
       <div class="bar">
         <div class="brand" role="banner">
-          <div class="logo" title="To The Moon Marketplace">
+          <div class="logo" title="To The Moon Marketplace" data-go="home" style="cursor:pointer">
 <!-- Put your logo at: assets/ttmm-emblem.png (preferred) or assets/ttmm-logo-cropped.png -->
 <img src="assets/ttmm-emblem.png"
      alt="To The Moon Marketplace logo"
@@ -1518,17 +1518,21 @@ function syncSparklesWithTheme(theme){
       toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2400);
     }
 
-window.addEventListener('DOMContentLoaded', () => {
+function updateTodayHours(){
   const el = document.getElementById('todayHoursText');
   if(!el) return;
 
   const day = new Date().getDay(); // 0=Sun ... 6=Sat
   const isFriSat = (day === 5 || day === 6);
   const hours = isFriSat ? '12:00 PM – 12:00 AM' : '12:00 PM – 9:00 PM';
-
   el.textContent = `Today: ${hours}`;
-});
+}
 
+// Run now (in case DOM is already ready), and again when DOM is ready
+updateTodayHours();
+document.addEventListener('DOMContentLoaded', updateTodayHours);
+// Also run on load for Safari weirdness
+window.addEventListener('load', updateTodayHours);
   </script>
 </body>
 </html>

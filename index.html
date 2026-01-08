@@ -1095,6 +1095,13 @@
       sparkle.render(true);
     }
 
+let sparkle = null;
+
+function syncSparklesWithTheme(theme){
+  if(!sparkle) return;
+  sparkle.mode = (theme === 'nostalgic') ? 'starburst' : 'glitter';
+  sparkle.render(true);
+}
     function toggleTheme(){
       const cur = document.documentElement.getAttribute('data-theme') || 'nostalgic';
       setTheme(cur === 'nostalgic' ? 'modern' : 'nostalgic');
@@ -1134,8 +1141,6 @@
       'assets/gallery-06.jpg',
       'assets/gallery-07.jpg',
       'assets/gallery-08.jpg',
-      'assets/gallery-09.jpg',
-      'assets/gallery-10.jpg',
     ];
 
     function addPhoto(src){
@@ -1170,7 +1175,7 @@
     const canvas = document.getElementById('sparkleCanvas');
     const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const sparkle = {
+    sparkle = {
       mode: localStorage.getItem('ttmm_sparkle_mode') || 'starburst',
       dpr: Math.max(1, Math.min(2, window.devicePixelRatio || 1)),
       w: 0,

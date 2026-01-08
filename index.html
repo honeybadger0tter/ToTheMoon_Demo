@@ -708,41 +708,65 @@
         </div>
       </section>
 
-      <section id="visit">
-        <div class="wrap">
-          <h2 class="sectionTitle">📍 Visit Us In Fort Lauderdale</h2>
-          <p class="sectionSub">2205 Wilton Drive, Fort Lauderdale, FL 33305 • Mon–Thurs 10am–11pm • Fri–Sat 10am–1am • Sun 10am–11pm</p>
+<section id="visit">
+  <div class="wrap">
+    <h2 class="sectionTitle">📍 Visit Us In Fort Lauderdale</h2>
 
-          <div class="card cardPad">
-            <div class="visitGrid">
-              <div class="mapBox">
-                <div class="mapBadge" id="mapBadge">✅ Map Loaded</div>
-
-                <!-- Super-simple embed that works without an API key -->
-                <iframe
-                  id="mapFrame"
-                  title="Map to To The Moon Marketplace"
-                  referrerpolicy="no-referrer-when-downgrade"
-                  loading="eager"
-                  src="https://www.google.com/maps?q=To+The+Moon+Marketplace+2205+Wilton+Drive+Fort+Lauderdale+FL+33305&output=embed">
-                </iframe>
-              </div>
-
-              <div class="visitSide" style="display:flex;flex-direction:column;gap:10px">
-                <div class="pill" id="openMapsBtn">📍 Open in Google Maps</div>
-                <a class="pill" href="tel:+19545642987">📞 Call (954) 564-2987</a>
-                <div class="pill" data-go="story">📖 Read Our Sweet Story</div>
-                <div class="pill" data-go="rewards">🌀 Sweet Rewards (Demo)</div>
-                <div class="pill" data-go="shop">🛒 Online Marketplace (Demo)</div>
-              </div>
-            </div>
-
-            <div style="margin-top:12px;color:var(--muted);font-weight:800">
-              If embeds ever act up, the “Open in Google Maps” button always works.
-            </div>
+    <!-- Updated: Hours pulled from Google Maps -->
+    <div class="card cardPad" style="margin-bottom:14px">
+      <div style="display:grid;grid-template-columns: 1.2fr .8fr; gap:14px; align-items:start">
+        <div>
+          <div style="font-weight:1000;font-size:14px;margin-bottom:6px">To The Moon Marketplace</div>
+          <div style="color:var(--muted);font-weight:800;line-height:1.45">
+            2205 Wilton Drive, Fort Lauderdale, FL 33305<br/>
+            <a href="tel:+19545642987" style="text-decoration:none">(954) 564-2987</a>
           </div>
         </div>
-      </section>
+
+        <div>
+          <div style="font-weight:1000;font-size:14px;margin-bottom:8px">Hours (Google Maps)</div>
+          <div style="display:grid; gap:6px; font-weight:800; color:var(--muted); font-size:13px">
+            <!-- Replace these with the exact hours from Google Maps -->
+            <div><strong style="color:var(--ink)">Mon:</strong> 10:00 AM – 11:00 PM</div>
+            <div><strong style="color:var(--ink)">Tue:</strong> 10:00 AM – 11:00 PM</div>
+            <div><strong style="color:var(--ink)">Wed:</strong> 10:00 AM – 11:00 PM</div>
+            <div><strong style="color:var(--ink)">Thu:</strong> 10:00 AM – 11:00 PM</div>
+            <div><strong style="color:var(--ink)">Fri:</strong> 10:00 AM – 1:00 AM</div>
+            <div><strong style="color:var(--ink)">Sat:</strong> 10:00 AM – 1:00 AM</div>
+            <div><strong style="color:var(--ink)">Sun:</strong> 10:00 AM – 11:00 PM</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card cardPad">
+      <div class="visitGrid">
+        <div class="mapBox">
+          <div class="mapBadge" id="mapBadge">✅ Map Loaded</div>
+          <iframe
+            id="mapFrame"
+            title="Map to To The Moon Marketplace"
+            referrerpolicy="no-referrer-when-downgrade"
+            loading="eager"
+            src="https://www.google.com/maps?q=To+The+Moon+Marketplace+2205+Wilton+Drive+Fort+Lauderdale+FL+33305&output=embed">
+          </iframe>
+        </div>
+
+        <div class="visitSide" style="display:flex;flex-direction:column;gap:10px">
+          <div class="pill" id="openMapsBtn">📍 Open in Google Maps</div>
+          <a class="pill" href="tel:+19545642987">📞 Call (954) 564-2987</a>
+          <div class="pill" data-go="story">📖 Read Our Sweet Story</div>
+          <div class="pill" data-go="rewards">🌀 Sweet Rewards (Demo)</div>
+          <div class="pill" data-go="shop">🛒 Online Marketplace (Demo)</div>
+        </div>
+      </div>
+
+      <div style="margin-top:12px;color:var(--muted);font-weight:800">
+        If embeds ever act up, the “Open in Google Maps” button always works.
+      </div>
+    </div>
+  </div>
+</section>
 
       <section id="events">
         <div class="wrap">
